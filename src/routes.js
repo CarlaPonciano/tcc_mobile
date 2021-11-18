@@ -1,120 +1,86 @@
-import React from 'react'
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { Campaign } from './screens/Campaign';
+import { ListCampaigns } from './screens/ListCampaigns';
 import { Explore } from './screens/Explore';
+import { Campaign } from './screens/Campaign';
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function Routes () {
   return (
-    <Tab.Navigator
-      initialRouteName="Campanhas"
-      activeColor="#fff"
-      barStyle={{ backgroundColor: '#61D27A' }}
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#975516'
+        },
+        headerTintColor: '#fff',
+      }}
     >
-      <Tab.Screen
-        name="Campaign"
-        component={Campaign}
+      <Stack.Screen
+        name="TabScreen"
+        component={TabScreen}
         options={{
-          tabBarLabel: 'Campanhas',
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={25} color={color} />
-          ),
-        }}
+          headerShown: false,
+          title:'Campanhas',
+          headerTitleStyle: {
+          textAlign: 'center',
+        }}}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="Explore"
         component={Explore}
         options={{
-          tabBarLabel: 'Explorar',
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={25} color={color} />
-          ),
+          title:'Explorar',
+          headerTitleStyle: {
+            textAlign: 'center',
+          },
+          
         }}
       />
-    </Tab.Navigator>
-    // <Stack.Navigator   
-    //   initialRouteName="Campaign"
-    //   activeColor="#fff"
-    //   inactiveColor="#000"
-    //   labelStyle={{ fontSize: 12 }}
-    //   barStyle={{ backgroundColor: '#61D27A' }}
-    // >
-
-    //   <Stack.Screen 
-    //     name="Campanhas"
-    //     component={ HomeStackScreen }
-    //     options={{
-    //       name: 'Campanhas',
-    //       tabBarIcon: ({ color }) => (
-    //         <MaterialIcons name="home" size={25} color={color} />
-    //       )
-    //     }}
-    //   />
-
-    //   <Stack.Screen 
-    //     name="Explorar" 
-    //     component={ ExploreStackScreen }
-    //     options={{
-    //       tabBarLabel: 'Explorar',
-    //       tabBarIcon: ({ color }) => (
-    //         <MaterialIcons name="place" size={25} color={color} />
-    //       ),
-    //     }} 
-    //   />
-      
-    // </Stack.Navigator>
+      <Stack.Screen 
+        name="Campaign" 
+        component={Campaign} 
+        options={{
+          title:'Detalhes da Campanha',
+          headerTitleStyle: {
+            textAlign: 'center',
+          },
+        }} 
+      />
+    </Stack.Navigator>
   )
 }
 
 export default Routes
 
-// const HomeStackScreen = ({navigation}) => (
-//   <HomeStack.Navigator screenOptions={{
-//           headerStyle: {
-//             backgroundColor: '#61D27A'
-//           },
-//           headerTintColor: '#000',
-//       }}>
-//       <HomeStack.Screen 
-//         name="Campaign" 
-//         component={Campaign} 
-//         options={{
-//           title:'Campanhas',
-//           headerTitleStyle: {
-//             textAlign: 'center',
-//         },
-//       }} />
-//       {/* <HomeStack.Screen 
-//         name="Explorar" 
-//         component={Explore} 
-//         options={{
-//           title:'Explorar',
-//           headerTitleStyle: {
-//           textAlign: 'center',
-//         },
-//       }} /> */}
-//   </HomeStack.Navigator>
-// );
-
-// const ExploreStackScreen = ({navigation}) => (
-//   <HomeStack.Navigator screenOptions={{
-//           headerStyle: {
-//             backgroundColor: '#61D27A'
-//           },
-//           headerTintColor: '#000',
-//       }}>
-//       <HomeStack.Screen 
-//         name="Explorar" 
-//         component={Explore} 
-//         options={{
-//           title:'Explorar',
-//           headerTitleStyle: {
-//           textAlign: 'center',
-//         },
-//       }} />
-//   </HomeStack.Navigator>
-// );
+const TabScreen = ({ navigation }) => (
+  <Tab.Navigator initialRouteName="ListCampaigns"
+    activeColor="#fff"
+    barStyle={{ backgroundColor: '#61D27A' }}
+  >
+    <Tab.Screen 
+      name="ListCampaigns" 
+      component={ListCampaigns} 
+      options={{
+        tabBarLabel: 'Campanhas',
+        tabBarIcon: ({ color }) => (
+          <MaterialIcons name="home" size={25} color={color} />
+        ),
+      }}
+    />
+    <Tab.Screen 
+      name="Explorar" 
+      component={Explore} 
+      options={{
+        tabBarLabel: 'Explorar',
+        tabBarIcon: ({ color }) => (
+          <MaterialIcons name="place" size={25} color={color} />
+        ),
+      }} 
+    />
+  </Tab.Navigator>
+);
