@@ -5,6 +5,16 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fefefe'
     },
+    filter: {
+        backgroundColor: 'red',
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        right: 10,
+        zIndex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
     map: {
         flex: 1
     },
@@ -18,11 +28,14 @@ export const styles = StyleSheet.create({
         display: 'flex',
     },
     image: {
-        width: 75,
-        height: 75,
+        width: 65,
+        height: 65,
         borderRadius: 4,
         borderWidth: 4,
         borderColor: '#975516'
+    },
+    textBold: {
+        fontWeight: 'bold',
     },
     campaignTitle: {
         textAlign: 'center',
@@ -41,6 +54,9 @@ export const styles = StyleSheet.create({
     },
     campaignCTA:{
         margin: 3,
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
+    },
+    mapCircle: {
+        color: '#975516',
     }
 });
