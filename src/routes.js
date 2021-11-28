@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { ListCampaigns } from './screens/ListCampaigns';
 import { Explore } from './screens/Explore';
 import { Campaign } from './screens/Campaign';
+import { Organization } from './screens/Organization';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -51,6 +52,16 @@ function Routes () {
           },
         }} 
       />
+      <Stack.Screen 
+        name="Organization" 
+        component={Organization} 
+        options={{
+          title:'Detalhes da Organização',
+          headerTitleStyle: {
+            textAlign: 'center',
+          },
+        }} 
+      />
     </Stack.Navigator>
   )
 }
@@ -60,7 +71,7 @@ export default Routes
 const TabScreen = ({ navigation }) => (
   <Tab.Navigator initialRouteName="ListCampaigns"
     activeColor="#fff"
-    barStyle={{ backgroundColor: '#61D27A' }}
+    barStyle={{ backgroundColor: '#116530' }}
   >
     <Tab.Screen 
       name="ListCampaigns" 

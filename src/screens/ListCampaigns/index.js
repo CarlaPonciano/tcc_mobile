@@ -36,28 +36,28 @@ export function ListCampaigns({ navigation }) {
       <TouchableWithoutFeedback onPress={() => {
         navigation.navigate('Campaign', { campaign: item })
       }}>
-      <View style={styles.campaingInfo} key={item.id}>
-        <Text style={styles.campaignTitle}>{item.name}</Text>
-        <Text style={styles.campaignDescription} numberOfLines={3}>{item.description}</Text>
-        <Image
-          style={styles.campaignImage}
-          source={{uri:item.picture}}
-        />
-        <Text style={styles.dateLimit}>Data Limite:  
-          <Text style={styles.dateLimitBold}> {formatDate(item.end_date)}</Text>
-        </Text>
-        <View style={styles.divider}></View>
-        <View style={styles.moneyInformation}>
-            <View style={styles.moneyGoal}>
-              <Text style={styles.amountRaisedTitle}>Objetivo</Text>
-              <Text style={styles.amountRaised}>R$ {item.goal}</Text>
-            </View>
-            <View style={styles.moneyRaised}>
-              <Text style={styles.amountRaisedTitle}>Total Arrecadado</Text>
-              <Text style={styles.amountRaised}>R$ {item.amount_raised}</Text>
-            </View>
+        <View style={styles.campaingInfo} key={item.id}>
+          <Text style={styles.campaignTitle}>{item.name}</Text>
+          <Text style={styles.campaignDescription} numberOfLines={3}>{item.description}</Text>
+          <Image
+            style={styles.campaignImage}
+            source={{uri:item.picture}}
+          />
+          <Text style={styles.dateLimit}>Data Limite:  
+            <Text style={styles.dateLimitBold}> {formatDate(item.end_date)}</Text>
+          </Text>
+          <View style={styles.divider}></View>
+          <View style={styles.moneyInformation}>
+              <View style={styles.moneyGoal}>
+                <Text style={styles.amountRaisedTitle}>Objetivo</Text>
+                <Text style={styles.amountRaised}>R$ {item.goal}</Text>
+              </View>
+              <View style={styles.moneyRaised}>
+                <Text style={styles.amountRaisedTitle}>Total Arrecadado</Text>
+                <Text style={styles.amountRaised}>R$ {item.amount_raised}</Text>
+              </View>
+          </View>
         </View>
-      </View>
       </TouchableWithoutFeedback>
     </>
   );

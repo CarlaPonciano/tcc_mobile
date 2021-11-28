@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
     container: {
@@ -26,6 +26,12 @@ export const styles = StyleSheet.create({
         borderRadius: 30,
         width: width * 0.85,
         height: '95%',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowRadius: 5,
+        shadowOpacity: 0.3,
+        shadowOffset: { x: 2, y: -2},
+        overflow: 'hidden',
     },
     campaignTitle: {
         color: '#fff',
@@ -40,7 +46,7 @@ export const styles = StyleSheet.create({
     },
     campaignImage: {
         width: '100%',
-        height: 300,
+        height: height * 0.365,
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 20,

@@ -59,14 +59,14 @@ export const styles = StyleSheet.create({
     },
     buttonMakeDonation: {
         padding: 15,
-        backgroundColor: '#61D27A',
+        backgroundColor: '#116530',
         margin: 10,
         marginTop: 20,
         borderRadius: 10
     },
     textButton: {
         fontWeight: 'bold',
-        color: '#000',
+        color: '#fff',
         fontSize: 20,
         textAlign: 'center'
     },

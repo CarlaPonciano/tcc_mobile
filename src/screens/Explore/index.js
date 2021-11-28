@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import MapView, { Marker, Callout, Circle } from 'react-native-maps'
+import { View, Text, Image, TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import MapView, { Marker, Callout, Circle, PROVIDER_GOOGLE } from 'react-native-maps'
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons'
-import { Modalize } from 'react-native-modalize';
+import { Modalize } from 'react-native-modalize'
+const { height, width } = Dimensions.get('window')
 
 import { styles } from './styles';
 import api from '../../services/api';
@@ -14,7 +15,8 @@ export function Explore({ navigation }) {
   const [campaigns, setCampaigns] = useState([])
   const [organizations, setOrganizations] = useState([])
   const [radius, setRadius] = useState(2000)
-  const modalizeRef = useRef()
+  const [radiusInput, setRadiusInput] = useState('2')
+  const modalizeRef = useRef(null)
 
   const loadCampaigns = async () =>  { 
     api.get(`campaigns`).then(response => {
@@ -54,9 +56,25 @@ export function Explore({ navigation }) {
     }
   }
 
-  const onOpenModal = () => {
-    modalizeRef.current?.open();
-  };
+  const onOpenModalize = () => {
+    modalizeRef.current?.open()
+  }
+
+  const increaseRadiusInput = () => {
+    let valueToIncrease = ((Number.parseInt(radiusInput) + 1)).toString()
+    setRadiusInput(valueToIncrease)
+  }
+
+  const decreaseRadiusInput = () => {
+    let valueToDecrease = ((Number.parseInt(radiusInput)) -1).toString()
+    if (Number.parseInt(radiusInput) > 0) {
+      setRadiusInput(valueToDecrease)
+    }
+  }
+
+  const changeRadius = () => {
+    setRadius((Number.parseInt(radiusInput)) * 1000)
+  }
 
   function handleRegionChange(region) {
     setCurrentRegion(region)
@@ -75,24 +93,18 @@ export function Explore({ navigation }) {
   }, [])
 
   return (
-    <>
-      <Modalize
-        ref={modalizeRef}
-        snapPoint={180}
-      >
-        <View>
-          <Text>Text</Text>
+    <>      
+      <View style={styles.menu}>
+        <Text style={styles.title}>Encontre campanhas{"\n"}próximas à você</Text>
+
+        <View >
+          <TouchableOpacity onPress={onOpenModalize} style={styles.filter}>
+            <MaterialIcons name='filter-list' size={30} color='#116530' />
+          </TouchableOpacity>
         </View>
-      </Modalize>
-      
-      <View style={styles.filter}>
-        <TouchableOpacity 
-        onPress={onOpenModal}
-        >
-          <MaterialIcons style={styles.campaignCTA} name='filter-list' size={30} color='#000' />
-        </TouchableOpacity>
       </View>
       <MapView
+          provider={PROVIDER_GOOGLE}
           onRegionChangeComplete={handleRegionChange}
           initialRegion={currentRegion}
           style={styles.map}
@@ -128,18 +140,21 @@ export function Explore({ navigation }) {
 
             {(() => {
               if (campaign.creator_organization_id != null) {
-                let campaignOrganization = organizations.find((organization) => organization.id === campaign.creator_organization_id)
+                let organization = organizations.find((organization) => organization.id === campaign.creator_organization_id)
+                let organizationCampaigns = campaigns.filter((item) => item.creator_organization_id === campaign.creator_organization_id)
                 return (
                   <>
                     <Image
                         style={styles.image}
-                        source={{ uri: campaignOrganization?.profile_picture }}
+                        source={{ uri: organization?.profile_picture }}
                     />
-                    <Callout>
+                    <Callout onPress={() => {
+                      navigation.navigate('Organization', { organization: organization, organizationCampaigns: organizationCampaigns })
+                    }}>
                       <View style={styles.callout}>
-                          <Text style={styles.campaignTitle}>{campaignOrganization?.name}</Text>
-                          <Text style={styles.campaignDescription}>Essa é uma <Text style={styles.textBold}>organização</Text>, encontre no menu abaixo todas as campanhas disponíveis.</Text>
-                          <MaterialIcons style={styles.campaignCTA} name='arrow-downward' size={25} color='#61D27A' />
+                          <Text style={styles.campaignTitle}>{organization?.name}</Text>
+                          <Text style={styles.campaignDescription}>Essa é uma <Text style={styles.textBold}>organização</Text>. Descubra todas as campanhas organizadas por ela.</Text>
+                          <MaterialIcons style={styles.campaignCTA} name='arrow-forward' size={25} color='#116530' />
                       </View>
                     </Callout>
                   </>
@@ -157,7 +172,7 @@ export function Explore({ navigation }) {
                       <View style={styles.callout}>
                           <Text style={styles.campaignTitle}>{campaign.name}</Text>
                           <Text style={styles.campaignDescription} numberOfLines={2}>{campaign.description}</Text>
-                          <MaterialIcons style={styles.campaignCTA} name='arrow-forward' size={25} color='#61D27A' />
+                          <MaterialIcons style={styles.campaignCTA} name='arrow-forward' size={25} color='#116530' />
                       </View>
                     </Callout>
                   </>
@@ -168,6 +183,45 @@ export function Explore({ navigation }) {
           </Marker>
         ))}
       </MapView>
+
+      <Modalize 
+        ref={modalizeRef}
+        snapPoint={height/4}
+        style={styles.modalFilter}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalOptionContainer}>
+            <View>
+              <Text style={styles.modalOptionTitle}>Raio <Text style={styles.titleDescriptionModal}>(em km)</Text></Text>
+            </View>
+
+            <View style={styles.modalButtonsContainer}>
+              <TouchableOpacity style={styles.modalButton}>
+                <Text style={styles.modalTextButton} onPress={decreaseRadiusInput}>-</Text>
+              </TouchableOpacity>
+
+              <View>
+                <TextInput 
+                  style={styles.searchInput} 
+                  keyboardType={'numeric'}
+                  value={radiusInput}
+                  onChangeText={setRadiusInput}
+                ></TextInput>
+              </View>
+
+              <TouchableOpacity style={styles.modalButton} onPress={increaseRadiusInput}>
+                <Text style={styles.modalTextButton}>+</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.buttonSaveContainer}>
+            <TouchableOpacity onPress={changeRadius} style={styles.saveButton}>
+              <Text style={styles.textButton}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modalize>
     </>
   );
 }
