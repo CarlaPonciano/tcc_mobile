@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobile_tcc",
-    "slug": "mobile_tcc",
+    "name": "tcc",
+    "slug": "tcc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,12 +17,19 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.carla.tcc",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.carla.tcc",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDUTBDNf6Ju3a8I3MwWaMvY-gwzdQ3j684"
+        }
       }
     },
     "web": {

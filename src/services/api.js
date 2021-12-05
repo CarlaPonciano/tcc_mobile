@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://192.168.2.111:3333'
+    baseURL: 'https://208c-3-135-215-73.ngrok.io/'
 })
 export default api
