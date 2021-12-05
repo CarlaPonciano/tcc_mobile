@@ -31,29 +31,45 @@ export function Explore({ navigation }) {
   }
 
   const loadInitialPosition = async () => {
-    const { granted } = await requestForegroundPermissionsAsync();
+    // For tests, the initial position will be Ouro Branco.
+    // const { granted } = await requestForegroundPermissionsAsync();
 
-    if (granted) {
-        const { coords } = await getCurrentPositionAsync({
-            enableHighAccuracy: true,
-        })
+    // if (granted) {
+    //     const { coords } = await getCurrentPositionAsync({
+    //         enableHighAccuracy: true,
+    //     })
 
-        const { latitude, longitude } = coords
+    //     const { latitude, longitude } = coords
 
-        setCurrentRegion({
-            latitude,
-            longitude,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.04,
-        })
+    //     console.log(latitude, longitude)
 
-        setInitialRegion({
-          latitude,
-          longitude,
-          latitudeDelta: 0.04,
-          longitudeDelta: 0.04,
-        })
-    }
+    //     setCurrentRegion({
+    //         latitude,
+    //         longitude,
+    //         latitudeDelta: 0.04,
+    //         longitudeDelta: 0.04,
+    //     })
+
+    //     setInitialRegion({
+    //       latitude,
+    //       longitude,
+    //       latitudeDelta: 0.04,
+    //       longitudeDelta: 0.04,
+    //     })
+    // }
+    setCurrentRegion({
+        latitude: -20.5087236,
+        longitude: -43.7117267,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
+    })
+
+    setInitialRegion({
+      latitude: -20.5087236,
+      longitude: -43.7117267,
+      latitudeDelta: 0.04,
+      longitudeDelta: 0.04,
+    })
   }
 
   const onOpenModalize = () => {
