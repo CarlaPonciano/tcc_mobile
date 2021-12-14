@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tcc",
-    "slug": "tcc",
+    "name": "Doe Mais",
+    "slug": "doe-mais",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,7 +28,7 @@
       },
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDUTBDNf6Ju3a8I3MwWaMvY-gwzdQ3j684"
+          "apiKey": ""
         }
       }
     },
