@@ -17,11 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.carla.tcc",
+      "bundleIdentifier": "com.carla.doemais",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.carla.tcc",
+      "package": "com.carla.doemais",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
